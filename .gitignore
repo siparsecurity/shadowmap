@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pyo
+*.html
+*.json
+.DS_Store
+Thumbs.db
