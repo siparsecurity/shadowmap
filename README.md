@@ -1,4 +1,4 @@
-cat > README.md << 'EOF'
+
 # ShadowMap — Web Reconnaissance Tool
 
 > By Sipar Security | Free Edition | v1.0
@@ -78,4 +78,4 @@ Built by **Sipar Security** — an open-source cybersecurity company from Pakist
 - 📧 siparsecurity@gmail.com
 - 💼 [LinkedIn](https://linkedin.com/company/siparsecurity)
 - ⭐ [GitHub](https://github.com/siparsecurity)
-EOF
+
