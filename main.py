@@ -10,9 +10,10 @@
 """
 
 import argparse
+import re
+import socket
 import sys
 import warnings
-from pathlib import Path
 
 warnings.filterwarnings("ignore", message="Unverified HTTPS request")
 
@@ -74,10 +75,23 @@ def print_config(args, domain):
     console.print()
 
 
+def validate_domain(domain: str) -> bool:
+    """Return True if domain looks like a valid hostname."""
+    if not domain:
+        return False
+    # Basic pattern: labels separated by dots, each label alphanumeric + hyphens
+    pattern = r'^(?:[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$'
+    return bool(re.match(pattern, domain))
+
+
 def main():
     banner()
     args = parse_args()
     domain = args.domain.lower().strip()
+
+    if not validate_domain(domain):
+        console.print(f"[bold red][!] Invalid domain: '{domain}'. Please provide a valid hostname (e.g. example.com)[/bold red]")
+        sys.exit(1)
 
     print_config(args, domain)
 
@@ -99,12 +113,11 @@ def main():
         existing = {e["subdomain"] for e in subdomains}
         for host in leaked_hosts:
             if host not in existing:
-                import socket
                 try:
                     ip = socket.gethostbyname(host)
                     subdomains.append({"subdomain": host, "ip": ip})
                     existing.add(host)
-                except Exception:
+                except socket.gaierror:
                     pass
 
     if not subdomains:

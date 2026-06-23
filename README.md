@@ -15,14 +15,19 @@ A lightweight, open-source web reconnaissance tool built for bug bounty hunters 
 - Clean terminal output
 
 ---
-
 ## Installation
 
 ```bash
 git clone https://github.com/siparsecurity/shadowmap.git
 cd shadowmap
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
+
+> **Windows users:** use `venv\Scripts\activate` instead of `source venv/bin/activate`
+
+> Modern Kali Linux and Debian systems block `pip install` outside a virtual environment. The venv step is required.
 
 ---
 
